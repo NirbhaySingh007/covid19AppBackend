@@ -1,0 +1,40 @@
+server:
+  port: 7071
+
+spring:
+  application:
+        name: myuserservice
+
+  mvc:
+    path match:
+      matching-strategy: ant-path-matcher
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+
+  datasource:
+    database: coviddb
+    url: jdbc:mysql://localhost:3306/coviddb?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: root
+    password: Shiv@200#
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    fetchRegistry: true
+    registerWithEureka: true
+
+
+
+
+

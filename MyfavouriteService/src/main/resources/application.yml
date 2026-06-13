@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: MyFavouriteServiceApplication
+  main:
+    web-application-type: reactive
+
+  autoconfigure:
+    exclude:
+      org:
+        springframework:
+          boot:
+            autoconfigure:
+              jdbc: DataSourceAutoConfiguration
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/coviddb
+      database: coviddb
+      host : localhost
+      port : 27017
+
+  mvc:
+    path match:
+      matching-strategy:
+        ant-path-matcher
+
+server:
+  port: 7072
+  error:
+    include-message: always
+eureka:
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+
+#spring.data.mongodb.database= ${MONGO_DATABASENAME}
+      #database: coviddb
+      #host : localhost
+  #data:
+      #mongodb:
+            #uri:${MONGO_URL}
+  #spring.data.mongodb.host = ${MONGO_HOST}
+  #spring.data.mongodb.port = ${MONGO_PORT}
+#spring.data.mongodb.database: coviddb
+#spring.data.mongodb.host : localhost
+#spring.data.mongodb.port : 27017
+
+#spring.autoconfigure:exclude:org:springframework:boot:
+                                #autoconfigure:
+                                #jdbc:
+                                #DataSourceAutoConfiguration
+#spring.application.name=MyFavouriteServiceApplication
+#server.port=7072
+#spring.mvc:pathmatch:matching-strategy:ant-path-matcher
+
+#eureka.client.serviceUrl.defaultZone=http://localhost:9003/eureka/
+#eureka.client.register-with-eureka=true
+#eureka.client.fetch-registry=true
+
+#spring.data.mongodb.uri=mongodb://localhost:27017/wiproMongodb
+
+
+
+

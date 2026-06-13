@@ -1,0 +1,78 @@
+version: "3.5"
+services:
+  mysqlservice:
+    image: mysql:5.5
+    ports:
+      - 3306:3306
+    container_name: mysql-container
+    network_mode: host
+    hostname: localhost
+    environment:
+      MYSQL_ROOT_PASSWORD: Shiv@200#
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Shiv@200#
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  mongodbservice:
+    image: mongo:latest
+    container_name: mongo-container
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 27017:27017
+
+  myfavouriteservice:
+    container_name: my-favourite-service
+    build: MyfavouriteService/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 7072:7072
+    depends_on:
+      - mongodbservice
+      - eurekaServer
+      - cloudapiservice
+    restart: always
+
+  myuserservice:
+    container_name: my-user-service
+    build: MyUserService/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 7071:7071
+    depends_on:
+      - mysqlservice
+      - eurekaServer
+      - cloudapiservice
+    restart: always
+
+  cloudapiservice:
+    image: cloud-api-service
+    build: SpringCloudAPIGateway/
+    restart: always
+    network_mode: host
+    #hostname: localhost
+    ports:
+      - 9000:9000
+    environment:
+      API_GATEWAY_PORT: 9000
+      EUREKA_SERVER_IP: localhost
+      EUREKA_SERVER_PORT: 8761
+    depends_on:
+      - eurekaServer
+
+
+  eurekaServer:
+    image: eureka-service
+    build: EurekaServer/
+    restart: always
+    network_mode: host
+    #hostname: localhost
+    environment:
+      EUREKA_SERVER_PORT: 8761
+    ports:
+      - 8761:8761
+
+
+
